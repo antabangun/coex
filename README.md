@@ -2,9 +2,8 @@
 
 PyTorch implementation of our paper: 
 
-Correlate-and-Excite: Real-Time Stereo Matching via Guided Cost Volume Excitation
-
-Authors: Antyanta Bangunharcana, Jae Won Cho, Seokju Lee, In So Kweon, Kyung-Soo Kim, Soohyun Kim
+**Correlate-and-Excite: Real-Time Stereo Matching via Guided Cost Volume Excitation**  
+*Authors: Antyanta Bangunharcana, Jae Won Cho, Seokju Lee, In So Kweon, Kyung-Soo Kim, Soohyun Kim*
 
 We propose a Guided Cost volume Excitation (GCE) and top-k soft-argmax disparity regression for real-time and accurate stereo matching. 
 
