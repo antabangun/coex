@@ -1,0 +1,19 @@
+channels:
+  mobilenetv3_large_100: [16,24,40,112,160]
+  mobilenetv2_120d: [24,32,40,112,192]
+  mobilenetv2_100: [16,24,32,96,160]
+  mnasnet_100: [16,24,40,96,192]
+  efficientnet_b0: [16,24,40,112,192]
+  efficientnet_b3a: [24,32,48,136,232]
+  mixnet_xl: [40,48,64,192,320]
+  dla34: [32,64,128,256,512]
+
+layers:
+  mobilenetv3_large_100: [1,2,3,5,6]
+  mobilenetv2_120d: [1,2,3,5,6]
+  mobilenetv2_100: [1,2,3,5,6]
+  mnasnet_100: [1,2,3,5,6]
+  efficientnet_b0: [1,2,3,5,6]
+  efficientnet_b3a: [1,2,3,5,6]
+  mixnet_xl: [1,2,3,5,6]
+  dla34: [1,2,3,5,6]

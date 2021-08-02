@@ -1,0 +1,56 @@
+###########################################################
+device: [0]
+precision: 32
+
+###########################################################
+training:
+  load_version: null
+  save_version: 0
+
+  lr: 0.001
+  sceneflow_max_epochs: 10
+  sceneflow_milestones: [7]
+  sceneflow_gamma: 0.1
+  kitti_max_epochs: 800
+  kitti_milestones: [30, 50, 300]
+  kitti_gamma: 0.5
+  batch_size: 8
+
+  th: 288
+  tw: 576
+
+  train_on: 
+    sceneflow: True
+    kitti12: False
+    kitti15: False
+
+  paths:
+    sceneflow: '../../data/datasets/SceneFlow'
+    kitti12: '../../data/datasets/SceneFlow/kitti12/training'
+    kitti15: '../../data/datasets/SceneFlow/kitti15/training'
+    logging: './logs/stereo'
+
+  training_scales_weighting: [1, 0.7, 0.5]  # For PSMNet
+
+testing:
+  save_disp_imgs: True
+  compute_metrics: True
+
+###########################################################
+model:
+  name: 'PSMNet'
+
+  stereo:
+    name: 'PSMNet'
+    max_disparity: 192
+    backbone: 
+      type: 'mobilenetv2_100'
+      from_scratch: False
+      cfg_path: './configs/backbone.yaml'
+
+    corr_volume: False
+    gce: False
+    multiple_gce: False
+    
+    regression:
+      top_k: 192

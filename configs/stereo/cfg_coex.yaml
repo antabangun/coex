@@ -1,0 +1,66 @@
+###########################################################
+device: [0]
+precision: 32
+
+###########################################################
+training:
+  load_version: null
+  save_version: 0
+
+  lr: 0.001
+  sceneflow_max_epochs: 10
+  sceneflow_milestones: [7]
+  sceneflow_gamma: 0.1
+  kitti_max_epochs: 800
+  kitti_milestones: [30, 50, 300,]
+  kitti_gamma: 0.5
+  batch_size: 8
+
+  th: 288
+  tw: 576
+
+  train_on: 
+    sceneflow: True
+    kitti12: True
+    kitti15: True
+
+  paths:
+    sceneflow: '../../data/datasets/SceneFlow'
+    kitti12: '../../data/datasets/SceneFlow/kitti12/training'
+    kitti15: '../../data/datasets/SceneFlow/kitti15/training'
+    logging: './logs/stereo'
+
+  training_scales_weighting: [1, 0.3]
+
+testing:
+  save_disp_imgs: True
+  compute_metrics: True
+
+###########################################################
+model:
+  name: 'CoEx'
+  
+  stereo:
+    name: 'CoEx'
+    max_disparity: 192
+    backbone: 
+      type: 'mobilenetv2_100'
+      from_scratch: False
+      cfg_path: './configs/backbone.yaml'
+
+    corr_volume: True
+    gce: True
+
+    matching_head: 1
+    matching_weighted: False
+
+    spixel: 
+      branch_channels: [32,48]
+
+    aggregation:
+      disp_strides: 2
+      channels: [16,32,48]
+      blocks_num: [2,2,2]
+
+    regression:
+      top_k: 2
