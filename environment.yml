@@ -6,14 +6,13 @@ channels:
   - anaconda
   - defaults
 dependencies:
-  - python>=3.7
-  - anaconda
+  - python=3.7
   - pip
   - numpy
-  - pytorch
-  - torchvision
+  - pytorch=1.9.0
+  - torchvision=0.10.0
   - cudatoolkit=11.1
-  - pytorch-lightning
+  - pytorch-lightning=1.4.0
   - ruamel.yaml
   - pillow
   - scikit-image

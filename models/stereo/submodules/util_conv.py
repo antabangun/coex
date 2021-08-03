@@ -1,16 +1,12 @@
 #!/usr/bin/env python
 from __future__ import print_function
-import os
-import numpy as np
-from typing import Callable, Any, Optional, List
+from typing import Callable, Optional, List
 import torch
 from torch import Tensor
 import torch.nn as nn
-import torch.nn.functional as F
-from torchvision.ops import DeformConv2d
-from torch.autograd import Variable
 
 import pdb
+
 
 class BasicConv(nn.Module):
 
@@ -38,33 +34,6 @@ class BasicConv(nn.Module):
             x = self.bn(x)
         if self.relu:
             x = nn.LeakyReLU()(x)#, inplace=True)
-        return x
-
-
-class DeformConv(nn.Module):
-    def __init__(self, inp_c, out_c, kernel_size=3, stride=1, padding=1, bias=False):
-        super(DeformConv, self).__init__()
-        self.offset = nn.Conv2d(inp_c, 2*3*3,
-                                kernel_size=kernel_size,
-                                stride=stride,
-                                padding=padding)
-        self.mask = nn.Sequential(
-            nn.Conv2d(inp_c, 1*3*3,
-                      kernel_size=kernel_size,
-                      stride=stride,
-                      padding=padding),
-            nn.Sigmoid())
-        self.conv = DeformConv2d(inp_c, out_c,
-                                 kernel_size=kernel_size,
-                                 stride=stride,
-                                 padding=padding,
-                                 bias=bias)
-        # self.bnrelu = nn.Sequential(nn.BatchNorm2d(out_c), nn.ReLU6())
-
-    def forward(self, x):
-        offset = self.offset(x)
-        mask = self.mask(x)
-        x = (self.conv(x, offset, mask))
         return x
 
 
