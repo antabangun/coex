@@ -20,7 +20,7 @@ We propose a Guided Cost volume Excitation (GCE) and top-k soft-argmax disparity
     - [Model zoo](#model-zoo)
 - [Re-training the models](#re-training-the-models)
 
-##Installation
+## Installation
 
 We recommend using [conda](https://www.anaconda.com/distribution/) for installation: 
 ```shell
