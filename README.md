@@ -12,10 +12,10 @@ IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2021
 We propose a Guided Cost volume Excitation (GCE) and top-k soft-argmax disparity regression for real-time and accurate stereo matching. 
 
 ## Contents
-- [Installation](#Installation)
+- [Installation](#installation)
 - [Datasets](#datasets)
     - [Data for demo](#data-for-demo)
-    - [If you want to re-train the model](#if-you-want-to-re-train-the-model)
+    - [If you want to re-train the models](#if-you-want-to-re-train-the-models)
 - [Demo on KITTI raw data](#demo-on-kitti-raw-data)
     - [Model zoo](#model-zoo)
 - [Re-training the models](#re-training-the-models)
