@@ -23,14 +23,23 @@ training:
     sceneflow: True
     kitti12: True
     kitti15: True
+    kittiraw: True
+    kitti360: False
 
   paths:
     sceneflow: '../../data/datasets/SceneFlow'
+
     kitti12: '../../data/datasets/SceneFlow/kitti12/training'
     kitti15: '../../data/datasets/SceneFlow/kitti15/training'
+    
+    kittiraw: '../../data/datasets/KITTI_raw'
+    kitti360: '../../data/datasets/KITTI-360'
     logging: './logs/stereo'
 
   training_scales_weighting: [1, 0.3]
+
+  with_context: False
+  extract_feature: False
 
 testing:
   save_disp_imgs: True

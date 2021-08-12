@@ -23,18 +23,34 @@ We propose a Guided Cost volume Excitation (GCE) and top-k soft-argmax disparity
 ## Installation
 
 We recommend using [conda](https://www.anaconda.com/distribution/) for installation: 
-```shell
+```bash
 conda env create -f environment.yml
-```
-Then activate the newly created env
-```shell
 conda activate coex
 ```
 
 ## Datasets
 
+### Data for demo
+
+For a demo of our code on the KITTI dataset, download the "\[synced+rectified data\]" from [raw KITTI data](http://www.cvlibs.net/datasets/kitti/raw_data.php). Unzip and place the extracted folders following the directory tree below. 
+       
+### If you want to re-train the models
+**Sceneflow dataset**  
+Download the *finalpass* data of the [Sceneflow dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html) as well as the *Disparity* data.
+
+**KITTI 2015**  
+Download [kitti15](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo) dataset, and unzip data_scene_flow.zip, rename it as kitti15, and move it into SceneFlow directory as shown in the tree below.
+
+**KITTI 2012**  
+Download [kitti12](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo) dataset. Unzip data_stereo_flow.zip, rename it as kitti12, and move it into SceneFlow directory as shown in the tree below.
+
+The paths where the code can find the dataset can be modified inside the [config files](/configs/stereo/cfg_coex.yaml), but make sure the directory names of driving, flyingthings3d_final, monkaa.
+
+### Data directories
+
+In our setup, the dataset is organized as follows
 ```
-data
+../../data
 └── datasets
     ├── KITTI_raw
     |   ├── 2011_09_26
@@ -66,32 +82,30 @@ data
             └── training
 ```
 
-### Data for demo
-
-For a demo of our code on the KITTI dataset, download the "\[synced+rectified data\]" from [raw KITTI data](http://www.cvlibs.net/datasets/kitti/raw_data.php). Unzip and place the extracted folders following the above directory tree. 
-       
-### If you want to re-train the models
-**Sceneflow dataset**  
-Download the *finalpass* data of the [Sceneflow dataset](https://lmb.informatik.uni-freiburg.de/resources/datasets/SceneFlowDatasets.en.html) as well as the *Disparity* data.
-
-**KITTI 2015**  
-Download [kitti15](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benchmark=stereo) dataset, and unzip data_scene_flow.zip, rename it as kitti15, and move it into SceneFlow directory as shown in the tree above.
-
-**KITTI 2012**  
-Download [kitti12](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo) dataset. Unzip data_stereo_flow.zip, rename it as kitti12, and move it into SceneFlow directory as shown in the tree above.
-
-The paths where the code can find the dataset can be modified inside the [config files](/configs/stereo/cfg_coex.yaml), but make sure the directory names of driving, flyingthings3d_final, monkaa.
-
 ## Demo on KITTI raw data
-### Model zoo
+The pretrained KITTI model is already included in './logs'.
+Run
+```bash
+python demo.py
+```
+to perform stereo matching on raw kitti sequence. For more demo results, checkout our [Project](https://antabangun.github.io/projects/CoEx/#demo) page
 
-
-## Re-training the models
-
+## Re-training the model
+To re-train the model, configure './configs/stereo/cfg_yaml', and run
+```bash
+python stereo.py
+```
 
 ## Citation
 
 If you find our work useful in your research, please consider citing our paper
+
+    @inproceedings{bangunharcana2021coex,
+      title={Correlate-and-Excite: Real-Time Stereo Matching via Guided Cost Volume Excitation},
+      author={Bangunharcana, Antyanta and Cho, Jae Won and Lee, Seokju and Kweon, In So and Kim, Kyung-Soo and Soohyun Kim},
+      booktitle={IROS},
+      year={2021}
+    }
 
 ## Acknowledgements
 
