@@ -45,7 +45,7 @@ Download [kitti15](http://www.cvlibs.net/datasets/kitti/eval_scene_flow.php?benc
 **KITTI 2012**  
 Download [kitti12](http://www.cvlibs.net/datasets/kitti/eval_stereo_flow.php?benchmark=stereo) dataset. Unzip data_stereo_flow.zip, rename it as kitti12, and move it into SceneFlow directory as shown in the tree below.
 
-The paths where the code can find the dataset can be modified inside the [config files](/configs/stereo/cfg_coex.yaml), but make sure the directory names of driving, flyingthings3d_final, monkaa.
+Make sure the directory names matches the tree below so that the dataloaders can locate the files.
 
 ### Data directories
 
@@ -89,7 +89,7 @@ Run
 ```bash
 python demo.py
 ```
-to perform stereo matching on raw kitti sequence. 
+to perform stereo matching on raw kitti sequence. Here is an example result on our system with RTX 2080Ti on Ubuntu 18.04.
 
 <p align="center">
   <img width="422" height="223" src="./imgs/coex_compress.gif" data-zoomable>
@@ -98,7 +98,7 @@ to perform stereo matching on raw kitti sequence.
 For more demo results, checkout our [Project](https://antabangun.github.io/projects/CoEx/#demo) page
 
 ## Re-training the model
-To re-train the model, configure './configs/stereo/cfg_yaml', and run
+To re-train the model, configure './configs/stereo/cfg_yaml', e.g., batch_size, paths, device num, precision, etc. Then run
 ```bash
 python stereo.py
 ```
