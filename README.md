@@ -16,9 +16,10 @@ We propose a Guided Cost volume Excitation (GCE) and top-k soft-argmax disparity
 - [Datasets](#datasets)
     - [Data for demo](#data-for-demo)
     - [If you want to re-train the models](#if-you-want-to-re-train-the-models)
+    - [Data directories](#data-directories)
 - [Demo on KITTI raw data](#demo-on-kitti-raw-data)
     - [Model zoo](#model-zoo)
-- [Re-training the models](#re-training-the-models)
+- [Re-training the model](#re-training-the-model)
 
 ## Installation
 
@@ -88,7 +89,13 @@ Run
 ```bash
 python demo.py
 ```
-to perform stereo matching on raw kitti sequence. For more demo results, checkout our [Project](https://antabangun.github.io/projects/CoEx/#demo) page
+to perform stereo matching on raw kitti sequence. 
+
+<p align="center">
+  <img width="422" height="223" src="./imgs/coex_compress.gif" data-zoomable>
+</p>
+
+For more demo results, checkout our [Project](https://antabangun.github.io/projects/CoEx/#demo) page
 
 ## Re-training the model
 To re-train the model, configure './configs/stereo/cfg_yaml', and run
