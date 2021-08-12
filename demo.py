@@ -1,13 +1,5 @@
-import os
-import argparse
-import shutil
-import glob
 import cv2
 import numpy as np
-import OpenGL.GL as gl
-import pangolin
-
-from multiprocessing import Process, Queue
 
 import torch
 from torch.utils.data import DataLoader
