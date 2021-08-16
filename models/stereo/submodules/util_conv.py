@@ -4,6 +4,7 @@ from typing import Callable, Optional, List
 import torch
 from torch import Tensor
 import torch.nn as nn
+import torch.nn.functional as F
 
 import pdb
 
@@ -51,9 +52,9 @@ class Conv2x(nn.Module):
             kernel = 3
 
         if deconv and is_3d and keep_dispc:
-            kernel = (1,4,4)
-            stride = (1,2,2)
-            padding = (0,1,1)
+            kernel = (1, 4, 4)
+            stride = (1, 2, 2)
+            padding = (0, 1, 1)
             self.conv1 = BasicConv(in_channels, out_channels, deconv, is_3d, bn=True, relu=True, kernel_size=kernel, stride=stride, padding=padding)
         else:
             self.conv1 = BasicConv(in_channels, out_channels, deconv, is_3d, bn=True, relu=True, kernel_size=kernel, stride=2, padding=1)
@@ -66,7 +67,11 @@ class Conv2x(nn.Module):
 
     def forward(self, x, rem):
         x = self.conv1(x)
-        assert(x.size() == rem.size())
+        if x.shape != rem.shape:
+            x = F.interpolate(
+                x,
+                size=(rem.shape[-2], rem.shape[-1]),
+                mode='nearest')
         if self.concat:
             x = torch.cat((x, rem), 1)
         else: 

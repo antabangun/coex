@@ -234,6 +234,18 @@ def upfeat(input, prob, up_h=2, up_w=2):
     return feat_sum
 
 
+def upfeatHW(input, prob, tgt_h=2, tgt_w=2):
+    b, c, h, w = input.shape
+
+    feat = F.unfold(input, 3, 1, 1).reshape(b, -1, h, w)
+    feat = F.interpolate(
+        feat, size=(tgt_h, tgt_w), mode='nearest').reshape(
+            b, -1, 9, tgt_h, tgt_w)
+    feat_sum = (feat*prob.unsqueeze(1)).sum(2)
+
+    return feat_sum
+
+
 def upfeat_slant(input, prob, slant, up_h=2, up_w=2):
     """
     Superpixel upsampling with slant

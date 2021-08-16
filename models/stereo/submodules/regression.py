@@ -24,8 +24,9 @@ class Regression(SubModule):
         corr = F.softmax(corr, 2)
 
         disp_4 = torch.sum(corr*disp, 2, keepdim=True)
-        disp_4 = disp_4.reshape(b, h//4, w//4, 1).permute(0, 3, 1, 2)
+        disp_4 = disp_4.reshape(b, 1, disp_4.shape[-2], disp_4.shape[-1])
         disp_1 = (spixel.upfeat(disp_4, spg, 4, 4))
+        # disp_1 = (spixel.upfeatHW(disp_4, spg, h, w))
 
         disp_1 = disp_1.squeeze(1)*4  # + 1.5
 
@@ -36,22 +37,9 @@ class Regression(SubModule):
             return [disp_1]
 
     def topkpool(self, cost, k):
-        if not self.ind_init:
-            self.ind_ = torch.arange(
-                self.D, device=cost.device).reshape(1, 1, -1, 1, 1)
-            self.ind = self.ind_.repeat(
-                1, 1, 1, cost.shape[-2], cost.shape[-1])
-            self.ind_init = True
-        if self.ind.shape[-2:] != cost.shape[-2:]:
-            self.ind = self.ind_.repeat(
-                1, 1, 1, cost.shape[-2], cost.shape[-1])
-
-        if k == cost.shape[2]:
-            cv = cost
-            disp = self.ind
-
-        elif k == 1:
-            pool_ind_ = cost.argsort(2, True)[:, :, :k]
+        if k == 1:
+            _, ind = cost.sort(2, True)
+            pool_ind_ = ind[:, :, :k]
             b, _, _, h, w = pool_ind_.shape
             pool_ind = pool_ind_.new_zeros((b, 1, 3, h, w))
             pool_ind[:, :, 1:2] = pool_ind_
@@ -61,15 +49,14 @@ class Regression(SubModule):
                 pool_ind_+1, self.D*pool_ind_.new_ones(pool_ind_.shape))
             cv = torch.gather(cost, 2, pool_ind)
 
-            disp = torch.gather(self.ind.repeat(
-                cv.shape[0], cv.shape[1], 1, 1, 1), 2, pool_ind)
+            disp = pool_ind
 
         else:
-            pool_ind = cost.argsort(2, True)[:, :, :k]
+            _, ind = cost.sort(2, True)
+            pool_ind = ind[:, :, :k]
             cv = torch.gather(cost, 2, pool_ind)
 
-            disp = torch.gather(self.ind.repeat(
-                cv.shape[0], cv.shape[1], 1, 1, 1), 2, pool_ind)
+            disp = pool_ind
 
         return cv, disp
 

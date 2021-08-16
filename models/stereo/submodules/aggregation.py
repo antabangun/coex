@@ -2,6 +2,7 @@ from typing import List
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 
 from .util_conv import BasicConv
 from .utils import channelAtt
@@ -115,6 +116,12 @@ class Aggregation(SubModule):
         for i in range(3):
 
             cost_ = self.conv_up[-i-1](cost_)
+            if cost_.shape != cost_feat[-i-2].shape:
+                target_d, target_h, target_w = cost_feat[-i-2].shape[-3:]
+                cost_ = F.interpolate(
+                    cost_,
+                    size=(target_d, target_h, target_w),
+                    mode='nearest')
             if i == 2:
                 break
 

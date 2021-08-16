@@ -56,17 +56,8 @@ class Stereo(LightningModule):
             imgL = F.pad(imgL, (0, w_pad, 0, h_pad))
             imgR = F.pad(imgR, (0, w_pad, 0, h_pad))
 
-            # start = torch.cuda.Event(enable_timing=True)
-            # end = torch.cuda.Event(enable_timing=True)
-            # start.record()
-
             disp_pred = self.stereo(imgL, imgR, training=training)[0][:, :h, :w]
             
-            # end.record()
-            # torch.cuda.synchronize()
-            # runtime = start.elapsed_time(end)
-            # print('     stereo time: ', runtime)
-
         return disp_pred
 
     def training_step(self, batch, batch_idx):
