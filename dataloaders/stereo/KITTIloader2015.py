@@ -38,7 +38,7 @@ def dataloader(filepath, returnCalib=False, trainAll=False):
     disp_val_L = []
     calib_val = []
     for i in range(len(test_list)):
-        name = train_list[i].split('.')[0] + '.png'
+        name = test_list[i].split('.')[0] + '.png'
         left_val.append(filepath + '/image_2/' + name)
         right_val.append(filepath + '/image_3/' + name)
         disp_val_L.append(filepath + '/disp_occ_0/' + name)

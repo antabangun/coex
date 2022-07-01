@@ -107,11 +107,13 @@ python stereo.py
 
 If you find our work useful in your research, please consider citing our paper
 
-    @inproceedings{bangunharcana2021coex,
+    @inproceedings{bangunharcana2021correlate,
       title={Correlate-and-Excite: Real-Time Stereo Matching via Guided Cost Volume Excitation},
-      author={Bangunharcana, Antyanta and Cho, Jae Won and Lee, Seokju and Kweon, In So and Kim, Kyung-Soo and Soohyun Kim},
-      booktitle={IROS},
-      year={2021}
+      author={Bangunharcana, Antyanta and Cho, Jae Won and Lee, Seokju and Kweon, In So and Kim, Kyung-Soo and Kim, Soohyun},
+      booktitle={2021 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+      pages={3542--3548},
+      year={2021},
+      organization={IEEE}
     }
 
 ## Acknowledgements

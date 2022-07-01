@@ -38,7 +38,7 @@ def dataloader(filepath, returnCalib=False, trainAll=False):
     disp_val_L = []
     calib_val = []
     for i in range(len(test_list)):
-        name = train_list[i].split('.')[0] + '.png'
+        name = test_list[i].split('.')[0] + '.png'
         left_val.append(filepath + '/colored_0/' + name)
         right_val.append(filepath + '/colored_1/' + name)
         disp_val_L.append(filepath + '/disp_noc/' + name)
