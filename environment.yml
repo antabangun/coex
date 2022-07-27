@@ -9,15 +9,17 @@ dependencies:
   - python=3.7
   - pip
   - numpy
-  - pytorch=1.9.0
-  - torchvision=0.10.0
-  - cudatoolkit=11.1
-  - pytorch-lightning=1.4.0
+  - pytorch==1.11.0
+  - torchvision==0.12.0
+  - cudatoolkit=11.3
   - ruamel.yaml
   - pillow
   - scikit-image
   - pip:
+    - pytorch-lightning
     - opencv-contrib-python
     - albumentations
-    - timm
+    - timm==0.6.5
     - test-tube
+    - --find-links https://github.com/pytorch/TensorRT/releases
+    - torch-tensorrt

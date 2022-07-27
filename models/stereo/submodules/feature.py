@@ -206,7 +206,6 @@ class Feature(SubModule):
             if 'resnet' in self.type:
                 self.conv1 = model.conv1
                 self.bn1 = model.bn1
-                self.act1 = model.act1
                 self.maxpool = model.maxpool
 
                 self.layer1 = model.layer1
@@ -216,7 +215,6 @@ class Feature(SubModule):
             else:
                 self.conv_stem = model.conv_stem
                 self.bn1 = model.bn1
-                self.act1 = model.act1
 
                 self.block0 = torch.nn.Sequential(*model.blocks[0:layers[0]])
                 self.block1 = torch.nn.Sequential(*model.blocks[layers[0]:layers[1]])
@@ -287,13 +285,13 @@ class Feature(SubModule):
 
         else:
             if 'resnet' in self.type:
-                x2 = self.act1(self.bn1(self.conv1(x)))
+                x2 = self.bn1(self.conv1(x))
                 x4 = self.layer1(self.maxpool(x2))
                 x8 = self.layer2(x4)
                 x16 = self.layer3(x8)
                 x32 = self.layer4(x16)
             else:
-                x = self.act1(self.bn1(self.conv_stem(x)))
+                x = self.bn1(self.conv_stem(x))
                 x2 = self.block0(x)
                 x4 = self.block1(x2)
 

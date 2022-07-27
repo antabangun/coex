@@ -82,21 +82,26 @@ class CoEx(nn.Module):
             nn.BatchNorm2d(chans[1]), nn.ReLU()
             )
 
-    def forward(self, imL, imR, u0=None, v0=None, training=False):
-        assert imL.shape == imR.shape
-
+    def forward(self, imL, imR=None, u0=None, v0=None, training=False):
+        if imR is not None:
+            assert imL.shape == imR.shape
+            imL = torch.cat([imL, imR], 0)
+            
         b, c, h, w = imL.shape
+        v2, v = self.feature(imL)
+        x2, y2 = v2.split(dim=0, split_size=b//2)
 
-        # # Matching comp
-        x2, x = self.feature(imL)
-        y2, y = self.feature(imR)
+        v = self.up(v)
+        x, y = [], []
+        for v_ in v:
+            x_, y_ = v_.split(dim=0, split_size=b//2)
+            x.append(x_)
+            y.append(y_)
 
-        x, y = self.up(x, y)
-
-        stem_2x = self.stem_2(imL)
-        stem_4x = self.stem_4(stem_2x)
-        stem_2y = self.stem_2(imR)
-        stem_4y = self.stem_4(stem_2y)
+        stem_2v = self.stem_2(imL)
+        stem_4v = self.stem_4(stem_2v)
+        stem_2x, stem_2y = stem_2v.split(dim=0, split_size=b//2)
+        stem_4x, stem_4y = stem_4v.split(dim=0, split_size=b//2)
 
         x[0] = torch.cat((x[0], stem_4x), 1)
         y[0] = torch.cat((y[0], stem_4y), 1)

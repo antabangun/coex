@@ -45,18 +45,19 @@ class Stereo(LightningModule):
             cfg['model']['stereo']['name'],
             ['models.stereo'])(cfg['model']['stereo'])
 
-    def forward(self, imgL, imgR, training=False):
+    def forward(self, imgL, imgR=None, training=False):
         if training:
-            disp_pred = self.stereo(imgL, imgR, training=training)
+            disp_pred = self.stereo(imgL, imgR=imgR, training=training)
         else:
             h, w = imgL.shape[-2:]
             h_pad = 32-h % 32
             w_pad = 32-w % 32
 
             imgL = F.pad(imgL, (0, w_pad, 0, h_pad))
-            imgR = F.pad(imgR, (0, w_pad, 0, h_pad))
+            if imgR is not None:
+                imgR = F.pad(imgR, (0, w_pad, 0, h_pad))
 
-            disp_pred = self.stereo(imgL, imgR, training=training)[0][:, :h, :w]
+            disp_pred = self.stereo(imgL, imR=imgR, training=training)[0][:, :h, :w]
             
         return disp_pred
 
@@ -458,3 +459,13 @@ if __name__ == '__main__':
             kitti_test, batch_size=1,
             num_workers=16, shuffle=False, drop_last=False)
         trainer.test(stereo, kitti_test)
+
+
+
+class StereoTRT(Stereo):
+
+    def forward(self, imgL):
+
+        cost, spx_pred = self.stereo(imgL)
+            
+        return cost, spx_pred
