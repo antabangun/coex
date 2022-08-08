@@ -16,10 +16,10 @@ dependencies:
   - pillow
   - scikit-image
   - pip:
-    - pytorch-lightning
+    - pytorch-lightning==1.6.5
     - opencv-contrib-python
     - albumentations
     - timm==0.6.5
     - test-tube
-    - --find-links https://github.com/pytorch/TensorRT/releases
-    - torch-tensorrt
+    # - --find-links https://github.com/pytorch/TensorRT/releases
+    # - torch-tensorrt
