@@ -4,10 +4,11 @@ PyTorch implementation of our paper:
 
 
 **Correlate-and-Excite: Real-Time Stereo Matching via Guided Cost Volume Excitation**  
-*Authors: Antyanta Bangunharcana, Jae Won Cho, Seokju Lee, In So Kweon, Kyung-Soo Kim, Soohyun Kim*  
+*Authors: [Antyanta Bangunharcana](https://antabangun.github.io/)<sup>1</sup>, Jae Won Cho<sup>2</sup>, Seokju Lee<sup>2</sup>, In So Kweon<sup>2</sup>, Kyung-Soo Kim<sup>1</sup>, Soohyun Kim<sup>1</sup>*  
+<sup>1</sup>MSC Lab, <sup>2</sup>RVC Lab, Korea Advanced Institute of Science and Technology (KAIST)  
 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), 2021
 
-\[[Project page](https://antabangun.github.io/projects/CoEx/)\]
+\[[Project page](https://antabangun.github.io/projects/CoEx/)\] | \[[Paper](https://arxiv.org/abs/2304.03560)\]
 
 We propose a Guided Cost volume Excitation (GCE) and top-k soft-argmax disparity regression for real-time and accurate stereo matching. 
 
@@ -28,6 +29,27 @@ We recommend using [conda](https://www.anaconda.com/distribution/) for installat
 conda env create -f environment.yml
 conda activate coex
 ```
+## Update: SceneFlow model
+
+<!-- You can download our model trained on SceneFlow dataset from here:  
+[SceneFlow weights](https://www.dropbox.com/s/c1v2r74tlbrrmsr/sceneflow.ckpt?dl=0)  
+achieving a new SceneFlow EPE of 0.596 (vs 0.69 in the paper).
+We re-trained the model for 15 epochs with a learning rate of 0.001 followed by 5 epochs with a learning rate of 0.0001, without activating the stochastic weight averaging (SWA) technique. The model is trained with a batch size of 8 and fp16 precision.  -->
+
+### Model Weights
+Our pre-trained SceneFlow weights can be downloaded via the following link:
+
+- \[[**Download SceneFlow Pre-trained Weights**](https://www.dropbox.com/s/c1v2r74tlbrrmsr/sceneflow.ckpt?dl=0)\]
+
+### Performance
+Our model achieves a new SceneFlow EPE (End-Point-Error) of 0.596, improving upon the previous EPE of 0.69 reported in the original paper.
+
+### Training Details
+
+- The model was re-trained for a total of 20 epochs: First 15 epochs were trained with a learning rate of 0.001. The last 5 epochs were trained with a learning rate of 0.0001
+- We opted not to activate the Stochastic Weight Averaging (SWA) technique during the training process.
+- Batch size: 8
+- Precision: fp16
 
 ## Datasets
 
@@ -95,7 +117,7 @@ to perform stereo matching on raw kitti sequence. Here is an example result on o
   <img width="422" height="223" src="./imgs/coex_compress.gif" data-zoomable>
 </p>
 
-For more demo results, checkout our [Project](https://antabangun.github.io/projects/CoEx/#demo) page
+For more demo results, check out our [Project](https://antabangun.github.io/projects/CoEx/#demo) page
 
 ## Re-training the model
 To re-train the model, configure './configs/stereo/cfg_yaml', e.g., batch_size, paths, device num, precision, etc. Then run

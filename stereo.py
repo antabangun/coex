@@ -343,15 +343,15 @@ if __name__ == '__main__':
             gpus=cfg['device'],
             max_epochs=cfg['training']['sceneflow_max_epochs'],
             # resume_from_checkpoint=resume_from_checkpoint,
-            benchmark=True,
-            accumulate_grad_batches=1,
+            # benchmark=True,
+            # accumulate_grad_batches=1,
             gradient_clip_val=0.1,
-            stochastic_weight_avg=True,
+            # stochastic_weight_avg=True,
             # track_grad_norm=2,
             weights_summary='full',
             )
 
-        trainer.fit(stereo, sceneflow_train, )
+        trainer.fit(stereo, sceneflow_train, sceneflow_test)
         trainer.test(stereo, sceneflow_test)
 
     ''' KITTI Training Part '''
@@ -432,10 +432,10 @@ if __name__ == '__main__':
             gpus=cfg['device'],
             max_epochs=cfg['training']['kitti_max_epochs'],
             # resume_from_checkpoint=resume_from_checkpoint,
-            benchmark=True,
-            accumulate_grad_batches=1,
+            # benchmark=True,
+            # accumulate_grad_batches=1,
             gradient_clip_val=0.1,
-            stochastic_weight_avg=True,
+            # stochastic_weight_avg=True,
             # track_grad_norm=2,
             weights_summary='full',
             )
